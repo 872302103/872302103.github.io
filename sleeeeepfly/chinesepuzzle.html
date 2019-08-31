@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太极谜阵 Demo</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <form role="form" onsubmit="return false;">
+        <div class="form-group">
+          <label class="">温馨提示</label>
+          <span class="help-block">建议在Chrome浏览器下使用。</span>
+          <div class="btn-group">
+            <button id="btn-test-a" class="btn btn-default" type="button">测试数据A</button>
+            <button id="btn-test-b" class="btn btn-default" type="button">测试数据B</button>
+            <button id="btn-test-c" class="btn btn-default" type="button">测试数据C</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="arg1">第一步：设置谜阵点数</label>
+          <span id="tip1" class="help-block">当前已设置点数：${Util.N}</span>
+          <input id="arg1" class="form-control" type="range" min="5" max="24"/>
+        </div>
+        <div class="form-group">
+          <label for="arg2">第二步：输入谜阵初始状态</label>
+          <span class="help-block">以最顶端的点为起始点，按顺时针依次输入各点状态</span>
+          <span class="help-block">黑色点为1，白色点为0</span>
+          <div class="input-group">
+            <span class="input-group-addon">0b</span>
+            <input id="arg2" class="form-control" type="text"/>
+          </div>
+          <span id="tip2" class="help-block hide">输入有误，请检查！</span>
+        </div>
+        <div class="form-group">
+          <label for="arg3">第三步：输入谜阵变换方式</label>
+          <span class="help-block">选中起始点，按顺时针依次输入各点状态变换情况</span>
+          <span class="help-block">有虚线为1，无虚线为0</span>
+          <div class="input-group">
+            <span class="input-group-addon">0b</span>
+            <input id="arg3" class="form-control" type="text"/>
+          </div>
+          <span id="tip3" class="help-block hide">输入有误，请检查！</span>
+        </div>
+        <div class="form-group">
+          <label>第四步：点击按钮求解</label>
+          <input id="btn1" class="form-control btn btn-primary" type="button" value="点击求解"/>
+          <span id="tip4" class="help-block">共找到${results.length}组解法，耗时${ts}ms。</span>
+          <span class="help-block">点击任意一组解法可查看详细步骤。</span>
+          <ul id="results" class="form-control-static list-group">
+            <li class="list-group-item" data-result="${result}"><span class="badge">${moves}步</span>${sbin}</li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label>第五步：查看详细步骤</label>
+          <span id="tip5" class="help-block">请选中第${points.join(",")}点，各进行一次变换。</span>
+          <span class="help-block">起始点为第1个点，按顺时针递增。可随意调整步骤顺序，不影响最终状态。</span>
+          <ul id="details" class="form-control-static list-group">
+            <li class="list-group-item"><span class="badge">第${i}个点</span>${sbin}</li>
+          </ul>
+        </div>
+      </form>
+    </div>
+    <script src="puzzle.js"></script>
+  </body>
+</html>
