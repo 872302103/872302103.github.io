@@ -1,0 +1,21 @@
+name: 'GitHub Alvin9999 Bot'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Alvin9999免费账号'
+        env:
+          url: 'https://raw.githubusercontent.com/wiki/Alvin9999/new-pac/{ss,v2ray}免费账号.md'
+          key: 'Alvin9999'
+        run: |
+          key=${{ env.key }}
+          value=$(curl -s ${{ env.url }} | awk '/```bash/{getline; print}')
+          curl -X "POST" \
+               --data-urlencode "key=${key}" \
+               --data-urlencode "value=${value}" \
+               -s "https://api.textdb.online/update/"
